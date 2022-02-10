@@ -2,7 +2,7 @@
  * @Copyright: xvsos
  * @Author: xvs
  * @Date: 2022-02-09 16:19:36
- * @LastEditTime: 2022-02-09 18:48:07
+ * @LastEditTime: 2022-02-09 22:03:47
  * @LastEditors: OsenbergQu
  * @FilePath: /av/contents/base_of_av_and_ffmpeg.md
  * @Description: 
@@ -98,3 +98,8 @@ flowchart LR
 + **libavutil:** 核心工具库，下面的许多其他模块都会依赖该库做一些基本的音视频操作
 - **libavformat:** 文件格式和协议库，该模块是最重要的模块之一， 封装了 protocol 层和 demuxer、muxer 层， 使得格式和协议对于开发者来说是透明的。
 + **libavcodec:** 编解码库, 封装了 codec 层，但有一些 codec 是有自己的 license 的， 所以 ffmpeg 不会默认添加像 libx264、fdk-acc 等这些库的， 但 ffmpeg 就像一个平台一样， 可以将其他的第三方的 codec 以插件的形式添加进来， 然后为开发者提供统一的接口。
+- **libavfilter:** 音视频滤镜库，该模块提供了包括音频特效和视频特效的处理，在使用 ffmpeg 的 API 进行编解码的过程中，直接使用该模块为音视频数据做特效处理是非常方便同时也非常高效的一种方式。
++ **libavdevice:** 输入输出设备库，比如，需要编译出播放声音或者视频的工具 ffplay，就需要确保该模块是打开的，同时也需要 SDL 的预先编译， 因为该设备模块播放声音与播放视频使用的都是 SDK 库。
+- **libswresample:** 该模块可用于音频重采样，可以对数字音频进行声道数、数据格式、采样率等多种基本信息的转换。
++ **libswscale:** 该模块是将图像进行格式转换的模块，比如，可以将 YUV 的数据转换为 RGB 的数据，缩放尺寸由 1280x720 变为 800x480。
+- **libpostproc:** 该模块可用于进行后期处理， 当我们使用 libavfilter 的时候需要打开该模块的开关，因为 filter 中会u使用到该模块的一些基础函数。
